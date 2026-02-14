@@ -1,0 +1,49 @@
+<div class="search-overlay" [class.search-overlay--open]="searchService.isOpen()">
+  <div class="search-overlay__backdrop" (click)="close()"></div>
+  <div class="search-overlay__container">
+    <div class="search-overlay__header">
+      <div class="search-overlay__input-wrap">
+        <span class="material-icons-outlined search-overlay__icon">search</span>
+        <input
+          type="text"
+          class="search-overlay__input"
+          placeholder="Search products, collections..."
+          [ngModel]="searchService.query()"
+          (ngModelChange)="searchService.setQuery($event)"
+          autoFocus
+        />
+        @if (searchService.query()) {
+          <button class="search-overlay__clear" (click)="searchService.setQuery('')">
+            <span class="material-icons-outlined">close</span>
+          </button>
+        }
+      </div>
+      <button class="search-overlay__close-btn" (click)="close()">Cancel</button>
+    </div>
+
+    <div class="search-overlay__content">
+      @if (searchService.query() && results().length === 0) {
+        <div class="search-overlay__empty">
+          <p>No results found for "{{ searchService.query() }}"</p>
+        </div>
+      }
+
+      @if (results().length > 0) {
+        <div class="search-overlay__grid">
+          @for (product of results(); track product.id) {
+            <a [routerLink]="['/product', product.id]" class="search-card" (click)="close()">
+              <div class="search-card__img-wrap">
+                <img [src]="product.imageUrl" [alt]="product.name" class="search-card__img" />
+              </div>
+              <div class="search-card__info">
+                <h4 class="search-card__title">{{ product.name }}</h4>
+                <p class="search-card__category">{{ product.category }}</p>
+                <span class="search-card__price">${{ product.price }}</span>
+              </div>
+            </a>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>
