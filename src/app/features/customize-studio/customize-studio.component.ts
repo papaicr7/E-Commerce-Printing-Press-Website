@@ -7,9 +7,14 @@ import {
   AfterViewInit,
   signal,
   NgZone,
+  inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+import { CartService } from '../../core/services/cart.service';
+import { ToastService } from '../../core/services/toast.service';
+import { Product } from '../../shared/interfaces/product.interface';
 import * as THREE from 'three';
 
 export type ProductType = 'mug' | 'tshirt' | 'frame' | 'bottle';
@@ -77,6 +82,29 @@ export class CustomizeStudioComponent implements OnInit, AfterViewInit, OnDestro
   ];
 
   constructor(private ngZone: NgZone) {}
+
+  private cartService = inject(CartService);
+  private toastService = inject(ToastService);
+  private router = inject(Router);
+
+  addToCart(): void {
+    const product: Product = {
+      id: `custom-${Date.now()}`,
+      name: `Custom ${this.activeProduct()}`,
+      category: 'Customized',
+      price: 14.99,
+      description: `Customized ${this.activeProduct()} with ${this.activeColor()} base and "${this.customText()}" text.`,
+      shortDescription: 'Custom Design',
+      imageUrl: this.uploadedImage() || 'assets/images/placeholder-custom.jpg',
+      tags: ['custom'],
+      inStock: true,
+      rating: 5
+    };
+
+    this.cartService.addItem(product);
+    this.toastService.show('Custom design added to cart!', 'success');
+    this.router.navigate(['/cart']);
+  }
 
   ngOnInit(): void {}
 

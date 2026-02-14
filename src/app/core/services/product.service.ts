@@ -29,4 +29,16 @@ export class ProductService {
       .filter(p => p.id !== productId && p.category === product.category)
       .slice(0, limit);
   }
+
+  searchProducts(query: string): Product[] {
+    const q = query.toLowerCase().trim();
+    if (!q) return [];
+    return this.products().filter(
+      p =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.tags.some(t => t.toLowerCase().includes(q))
+    );
+  }
 }
