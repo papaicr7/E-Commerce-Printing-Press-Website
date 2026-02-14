@@ -49,6 +49,7 @@
                   ? 'Remove from Wishlist'
                   : 'Add to Wishlist'
               "
+              [style.color]="wishlistService.isInWishlist(product.id) ? '#ef4444' : null"
             >
               <span class="material-icons-outlined">
                 {{ wishlistService.isInWishlist(product.id) ? 'favorite' : 'favorite_border' }}
@@ -59,7 +60,7 @@
             <h3 class="products-page__card-name">{{ product.name }}</h3>
             <p class="products-page__card-sub">{{ product.shortDescription }}</p>
             <div class="products-page__card-footer">
-              <span class="products-page__card-price">${{ product.price.toFixed(2) }}</span>
+              <span class="products-page__card-price">₹{{ product.price.toFixed(2) }}</span>
               <span class="products-page__card-btn">Buy</span>
             </div>
           </div>

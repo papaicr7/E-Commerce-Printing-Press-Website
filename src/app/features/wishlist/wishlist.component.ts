@@ -34,7 +34,7 @@ import { CartService } from '../../core/services/cart.service';
               </div>
               <div class="wishlist-card__content">
                 <h3>{{ product.name }}</h3>
-                <p class="price">\${{ product.price }}</p>
+                <p class="price">₹{{ product.price }}</p>
                 <button class="btn-add" (click)="cart.addItem(product)">
                   Add to Cart
                 </button>

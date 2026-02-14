@@ -31,13 +31,15 @@
       </button>
       <a
         routerLink="/wishlist"
-        class="navbar__icon-btn"
+        class="navbar__icon-btn navbar__wishlist-btn"
         aria-label="Wishlist"
         (click)="closeMobile()"
       >
-        <span class="material-icons-outlined">favorite_border</span>
         @if (wishlistService.count() > 0) {
-          <span class="navbar__cart-badge">{{ wishlistService.count() }}</span>
+          <span class="material-icons-outlined navbar__wishlist-icon--active">favorite</span>
+          <span class="navbar__wishlist-badge">{{ wishlistService.count() }}</span>
+        } @else {
+          <span class="material-icons-outlined">favorite_border</span>
         }
       </a>
       <a

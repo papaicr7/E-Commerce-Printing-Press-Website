@@ -37,8 +37,8 @@
 
         <!-- Price -->
         <div class="pd__price-row">
-          <span class="pd__price">${{ p.price.toFixed(2) }}</span>
-          <span class="pd__price-original">${{ (p.price * 1.4).toFixed(2) }}</span>
+          <span class="pd__price">₹{{ p.price.toFixed(2) }}</span>
+          <span class="pd__price-original">₹{{ (p.price * 1.4).toFixed(2) }}</span>
           <span class="pd__discount">30% OFF</span>
         </div>
 
@@ -88,6 +88,8 @@
             [title]="
               wishlistService.isInWishlist(p.id) ? 'Remove from Wishlist' : 'Add to Wishlist'
             "
+            [style.color]="wishlistService.isInWishlist(p.id) ? '#ef4444' : null"
+            [style.border-color]="wishlistService.isInWishlist(p.id) ? '#ef4444' : null"
           >
             <span class="material-icons-outlined">
               {{ wishlistService.isInWishlist(p.id) ? 'favorite' : 'favorite_border' }}
@@ -113,7 +115,7 @@
               </div>
               <div class="pd__related-body">
                 <h4 class="pd__related-name">{{ rp.name }}</h4>
-                <span class="pd__related-price">${{ rp.price.toFixed(2) }}</span>
+                <span class="pd__related-price">₹{{ rp.price.toFixed(2) }}</span>
               </div>
             </div>
           }
