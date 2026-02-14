@@ -23,6 +23,8 @@
     justify-content: space-between;
     align-items: center;
     height: 5rem;
+
+    @include respond($bp-tv) { height: 5.5rem; }
   }
 
   &__brand {
@@ -51,6 +53,7 @@
     color: $primary;
 
     :host-context(.dark) & { color: #fff; }
+    @include respond($bp-tv) { font-size: $fs-3xl; }
   }
 
   &__brand-sub {

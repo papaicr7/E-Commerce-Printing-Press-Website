@@ -1,0 +1,93 @@
+<section class="cart-page">
+  <div class="cart-page__header" appScrollReveal>
+    <span class="cart-page__label">Your Cart</span>
+    <h1 class="cart-page__title">Shopping Cart</h1>
+  </div>
+
+  <div class="cart-page__container">
+    @if (cartService.items().length === 0) {
+      <div class="cart-page__empty" appScrollReveal>
+        <span class="material-icons-outlined cart-page__empty-icon">shopping_cart</span>
+        <h2 class="cart-page__empty-title">Your cart is empty</h2>
+        <p class="cart-page__empty-desc">Looks like you haven't added anything to your cart yet.</p>
+        <a routerLink="/products" class="cart-page__empty-btn">Continue Shopping</a>
+      </div>
+    } @else {
+      <div class="cart-page__content" appScrollReveal>
+        <!-- Items List -->
+        <div class="cart-page__items">
+          @for (item of cartService.items(); track item.product.id) {
+            <div class="cart-page__item">
+              <a [routerLink]="['/product', item.product.id]" class="cart-page__item-img-wrap">
+                <img
+                  [src]="item.product.imageUrl"
+                  [alt]="item.product.name"
+                  class="cart-page__item-img"
+                />
+              </a>
+              <div class="cart-page__item-info">
+                <a [routerLink]="['/product', item.product.id]" class="cart-page__item-name">{{
+                  item.product.name
+                }}</a>
+                <p class="cart-page__item-sub">{{ item.product.shortDescription }}</p>
+                <span class="cart-page__item-price">${{ item.product.price.toFixed(2) }}</span>
+              </div>
+              <div class="cart-page__item-controls">
+                <div class="cart-page__qty-control">
+                  <button
+                    class="cart-page__qty-btn"
+                    (click)="cartService.updateQuantity(item.product.id, item.quantity - 1)"
+                  >
+                    <span class="material-icons-outlined">remove</span>
+                  </button>
+                  <span class="cart-page__qty-value">{{ item.quantity }}</span>
+                  <button
+                    class="cart-page__qty-btn"
+                    (click)="cartService.updateQuantity(item.product.id, item.quantity + 1)"
+                  >
+                    <span class="material-icons-outlined">add</span>
+                  </button>
+                </div>
+                <span class="cart-page__item-total"
+                  >${{ (item.product.price * item.quantity).toFixed(2) }}</span
+                >
+                <button
+                  class="cart-page__item-remove"
+                  (click)="cartService.removeItem(item.product.id)"
+                >
+                  <span class="material-icons-outlined">delete_outline</span>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Order Summary -->
+        <aside class="cart-page__summary">
+          <h3 class="cart-page__summary-title">Order Summary</h3>
+          <div class="cart-page__summary-row">
+            <span>Subtotal ({{ cartService.totalCount() }} items)</span>
+            <span>${{ cartService.totalPrice().toFixed(2) }}</span>
+          </div>
+          <div class="cart-page__summary-row">
+            <span>Shipping</span>
+            <span class="cart-page__summary-free">FREE</span>
+          </div>
+          <div class="cart-page__summary-row cart-page__summary-row--total">
+            <span>Total</span>
+            <span>${{ cartService.totalPrice().toFixed(2) }}</span>
+          </div>
+          <button class="cart-page__checkout-btn">
+            <span class="material-icons-outlined">lock</span>
+            Proceed to Checkout
+          </button>
+          <a routerLink="/products" class="cart-page__continue">
+            <span class="material-icons-outlined">arrow_back</span>
+            Continue Shopping
+          </a>
+          <button class="cart-page__clear-btn" (click)="cartService.clearCart()">Clear Cart</button>
+        </aside>
+      </div>
+    }
+  </div>
+</section>

@@ -27,5 +27,15 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/contact/contact.component').then(m => m.ContactComponent),
   },
+  {
+    path: 'product/:id',
+    loadComponent: () =>
+      import('./features/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
+  },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./features/cart/cart.component').then(m => m.CartComponent),
+  },
   { path: '**', redirectTo: 'home' },
 ];

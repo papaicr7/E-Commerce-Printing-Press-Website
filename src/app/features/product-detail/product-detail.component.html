@@ -1,0 +1,113 @@
+@if (product(); as p) {
+  <section class="pd">
+    <!-- Breadcrumb -->
+    <nav class="pd__breadcrumb" appScrollReveal>
+      <a routerLink="/home">Home</a>
+      <span class="material-icons-outlined">chevron_right</span>
+      <a routerLink="/products">Shop</a>
+      <span class="material-icons-outlined">chevron_right</span>
+      <span class="pd__breadcrumb-current">{{ p.name }}</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pd__main" appScrollReveal>
+      <!-- Image Section -->
+      <div class="pd__image-section">
+        <div class="pd__image-hero">
+          <img [src]="p.imageUrl" [alt]="p.name" class="pd__hero-img" />
+          @if (p.tags.length > 0) {
+            <span class="pd__badge">{{ p.tags[0] }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Info Section -->
+      <div class="pd__info-section">
+        <span class="pd__category">{{ p.category }}</span>
+        <h1 class="pd__name">{{ p.name }}</h1>
+
+        <!-- Rating -->
+        <div class="pd__rating">
+          @for (star of getRatingStars(p.rating); track $index) {
+            <span class="material-icons-outlined pd__star">{{ star }}</span>
+          }
+          <span class="pd__rating-value">{{ p.rating }}</span>
+          <span class="pd__rating-count">(128 reviews)</span>
+        </div>
+
+        <!-- Price -->
+        <div class="pd__price-row">
+          <span class="pd__price">${{ p.price.toFixed(2) }}</span>
+          <span class="pd__price-original">${{ (p.price * 1.4).toFixed(2) }}</span>
+          <span class="pd__discount">30% OFF</span>
+        </div>
+
+        <!-- Stock Status -->
+        <div class="pd__stock" [class.pd__stock--out]="!p.inStock">
+          <span class="material-icons-outlined">{{ p.inStock ? 'check_circle' : 'cancel' }}</span>
+          {{ p.inStock ? 'In Stock' : 'Out of Stock' }}
+        </div>
+
+        <!-- Description -->
+        <p class="pd__description">{{ p.description }}</p>
+
+        <!-- Highlights -->
+        <div class="pd__highlights">
+          <h3 class="pd__highlights-title">Highlights</h3>
+          <ul class="pd__highlights-list">
+            <li><span class="material-icons-outlined">local_shipping</span> Free Delivery</li>
+            <li><span class="material-icons-outlined">verified</span> Premium Quality</li>
+            <li><span class="material-icons-outlined">autorenew</span> 30-Day Returns</li>
+            <li><span class="material-icons-outlined">brush</span> Fully Customizable</li>
+          </ul>
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="pd__qty-section">
+          <span class="pd__qty-label">Quantity</span>
+          <div class="pd__qty-control">
+            <button class="pd__qty-btn" (click)="decrementQty()">
+              <span class="material-icons-outlined">remove</span>
+            </button>
+            <span class="pd__qty-value">{{ quantity() }}</span>
+            <button class="pd__qty-btn" (click)="incrementQty()">
+              <span class="material-icons-outlined">add</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="pd__actions">
+          <button class="pd__btn pd__btn--cart" (click)="addToCart()" [disabled]="!p.inStock">
+            <span class="material-icons-outlined">shopping_cart</span>
+            Add to Cart
+          </button>
+          <button class="pd__btn pd__btn--buy" (click)="buyNow()" [disabled]="!p.inStock">
+            <span class="material-icons-outlined">bolt</span>
+            Buy Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    @if (relatedProducts().length > 0) {
+      <div class="pd__related" appScrollReveal>
+        <h2 class="pd__related-title">You May Also Like</h2>
+        <div class="pd__related-grid">
+          @for (rp of relatedProducts(); track rp.id) {
+            <div class="pd__related-card" (click)="goToProduct(rp.id)">
+              <div class="pd__related-img-wrap">
+                <img [src]="rp.imageUrl" [alt]="rp.name" class="pd__related-img" />
+              </div>
+              <div class="pd__related-body">
+                <h4 class="pd__related-name">{{ rp.name }}</h4>
+                <span class="pd__related-price">${{ rp.price.toFixed(2) }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </section>
+}

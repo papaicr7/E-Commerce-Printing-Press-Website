@@ -1,0 +1,315 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.cart-page {
+  &__header {
+    @include gradient-primary;
+    color: #fff;
+    text-align: center;
+    padding: $space-16 $space-4 $space-10;
+  }
+
+  &__label {
+    color: $secondary;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: $fs-sm;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: $fs-4xl;
+    font-weight: 700;
+    margin-top: $space-2;
+  }
+
+  &__container {
+    @include container;
+    padding-top: $space-10;
+    padding-bottom: $space-20;
+  }
+
+  // ── Empty State ────────────────────────────────────────
+  &__empty {
+    text-align: center;
+    padding: $space-20 $space-4;
+  }
+
+  &__empty-icon {
+    font-size: 5rem;
+    color: $text-muted-light;
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+
+  &__empty-title {
+    font-family: $font-display;
+    font-size: $fs-2xl;
+    color: #111;
+    margin-top: $space-4;
+    :host-context(.dark) & { color: #fff; }
+  }
+
+  &__empty-desc {
+    color: $text-muted-light;
+    margin-top: $space-2;
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+
+  &__empty-btn {
+    display: inline-block;
+    margin-top: $space-6;
+    padding: $space-3 $space-8;
+    background: $primary;
+    color: #fff;
+    border-radius: $radius-full;
+    font-weight: 700;
+    font-size: $fs-base;
+    transition: opacity $transition-fast;
+
+    &:hover { opacity: 0.85; }
+  }
+
+  // ── Content Layout ─────────────────────────────────────
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-8;
+
+    @include respond($bp-md) {
+      grid-template-columns: 1fr 360px;
+    }
+  }
+
+  // ── Items ──────────────────────────────────────────────
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__item {
+    @include card-base;
+    border-radius: $radius-xl;
+    padding: $space-4;
+    display: flex;
+    gap: $space-4;
+    align-items: center;
+    flex-wrap: wrap;
+
+    @include respond($bp-sm) { flex-wrap: nowrap; }
+  }
+
+  &__item-img-wrap {
+    flex-shrink: 0;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-lg;
+    overflow: hidden;
+
+    @include respond($bp-sm) {
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+
+  &__item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__item-name {
+    font-family: $font-display;
+    font-size: $fs-base;
+    font-weight: 700;
+    color: #111;
+    display: block;
+    :host-context(.dark) & { color: #fff; }
+
+    &:hover { color: $primary; }
+  }
+
+  &__item-sub {
+    font-size: $fs-sm;
+    color: $text-muted-light;
+    margin-top: $space-1;
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+
+  &__item-price {
+    font-weight: 600;
+    color: $primary;
+    font-size: $fs-sm;
+    margin-top: $space-1;
+    display: block;
+  }
+
+  &__item-controls {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    flex-shrink: 0;
+  }
+
+  &__qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid $border-light;
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    :host-context(.dark) & { border-color: rgba(255, 255, 255, 0.1); }
+  }
+
+  &__qty-btn {
+    width: 2rem;
+    height: 2rem;
+    @include flex-center;
+    transition: background $transition-fast;
+
+    &:hover { background: rgba($primary, 0.06); }
+
+    .material-icons-outlined { font-size: 1rem; }
+  }
+
+  &__qty-value {
+    width: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    font-size: $fs-sm;
+  }
+
+  &__item-total {
+    font-weight: 700;
+    font-size: $fs-lg;
+    color: #111;
+    min-width: 5rem;
+    text-align: right;
+    :host-context(.dark) & { color: #fff; }
+  }
+
+  &__item-remove {
+    color: $text-muted-light;
+    transition: color $transition-fast;
+    :host-context(.dark) & { color: $text-muted-dark; }
+
+    &:hover { color: $error; }
+
+    .material-icons-outlined { font-size: 1.3rem; }
+  }
+
+  // ── Summary ────────────────────────────────────────────
+  &__summary {
+    @include card-base;
+    border-radius: $radius-xl;
+    padding: $space-6;
+    height: fit-content;
+    position: sticky;
+    top: 6rem;
+  }
+
+  &__summary-title {
+    font-family: $font-display;
+    font-size: $fs-xl;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: $space-6;
+    :host-context(.dark) & { color: #fff; }
+  }
+
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: $space-3 0;
+    font-size: $fs-sm;
+    color: $text-muted-light;
+    border-bottom: 1px solid $border-light;
+    :host-context(.dark) & {
+      color: $text-muted-dark;
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &--total {
+      font-size: $fs-lg;
+      font-weight: 800;
+      color: #111;
+      border-bottom: none;
+      padding-top: $space-4;
+      :host-context(.dark) & { color: #fff; }
+    }
+  }
+
+  &__summary-free {
+    color: $success;
+    font-weight: 700;
+  }
+
+  &__checkout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    padding: $space-4;
+    margin-top: $space-6;
+    background: $primary;
+    color: #fff;
+    border: none;
+    border-radius: $radius-full;
+    font-weight: 700;
+    font-size: $fs-base;
+    cursor: pointer;
+    box-shadow: $shadow-lg;
+    transition: all $transition-fast;
+
+    :host-context(.dark) & {
+      background: $secondary;
+      color: $primary;
+    }
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: $shadow-xl;
+    }
+  }
+
+  &__continue {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    padding: $space-3;
+    margin-top: $space-3;
+    font-weight: 600;
+    font-size: $fs-sm;
+    color: $primary;
+    transition: opacity $transition-fast;
+
+    :host-context(.dark) & { color: $secondary; }
+
+    &:hover { opacity: 0.7; }
+  }
+
+  &__clear-btn {
+    width: 100%;
+    padding: $space-2;
+    margin-top: $space-2;
+    font-size: $fs-sm;
+    color: $text-muted-light;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: color $transition-fast;
+    :host-context(.dark) & { color: $text-muted-dark; }
+
+    &:hover { color: $error; }
+  }
+}

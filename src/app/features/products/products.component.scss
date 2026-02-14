@@ -6,7 +6,10 @@
     @include gradient-primary;
     color: #fff;
     text-align: center;
-    padding: $space-16 $space-4 $space-12;
+    padding: $space-12 $space-4 $space-10;
+
+    @include respond($bp-md) { padding: $space-16 $space-4 $space-12; }
+    @include respond($bp-tv) { padding: $space-20 $space-4 $space-16; }
   }
 
   &__label {
@@ -15,48 +18,63 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-size: $fs-sm;
+
+    @include respond($bp-tv) { font-size: $fs-base; }
   }
 
   &__title {
     font-family: $font-display;
-    font-size: $fs-4xl;
+    font-size: $fs-3xl;
     font-weight: 700;
     margin: $space-2 0 $space-4;
+
+    @include respond($bp-md) { font-size: $fs-4xl; }
     @include respond($bp-lg) { font-size: $fs-5xl; }
+    @include respond($bp-tv) { font-size: $fs-6xl; }
   }
 
   &__desc {
     max-width: 600px;
     margin: 0 auto;
     color: rgba(220, 200, 240, 0.85);
-    font-size: $fs-base;
+    font-size: $fs-sm;
     line-height: 1.7;
+
+    @include respond($bp-md) { font-size: $fs-base; }
+    @include respond($bp-tv) { font-size: $fs-lg; max-width: 800px; }
   }
 
   &__container {
     @include container;
-    padding-top: $space-10;
-    padding-bottom: $space-20;
+    padding-top: $space-8;
+    padding-bottom: $space-16;
+
+    @include respond($bp-md) { padding-top: $space-10; padding-bottom: $space-20; }
+    @include respond($bp-tv) { max-width: 1600px; }
   }
 
   &__filters {
     display: flex;
     flex-wrap: wrap;
-    gap: $space-3;
+    gap: $space-2;
     justify-content: center;
-    margin-bottom: $space-10;
+    margin-bottom: $space-8;
+
+    @include respond($bp-md) { gap: $space-3; margin-bottom: $space-10; }
   }
 
   &__filter-btn {
-    padding: $space-2 $space-5;
+    padding: $space-2 $space-4;
     border-radius: $radius-full;
-    font-size: $fs-sm;
+    font-size: $fs-xs;
     font-weight: 500;
     border: 1px solid $border-light;
     background: $surface-light;
     color: $text-muted-light;
     transition: all $transition-fast;
     cursor: pointer;
+
+    @include respond($bp-md) { padding: $space-2 $space-5; font-size: $fs-sm; }
 
     :host-context(.dark) & {
       background: $surface-dark;
@@ -80,16 +98,19 @@
   &__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: $space-8;
+    gap: $space-6;
 
-    @include respond($bp-sm) { grid-template-columns: repeat(2, 1fr); }
-    @include respond($bp-lg) { grid-template-columns: repeat(4, 1fr); }
+    @include respond($bp-sm) { grid-template-columns: repeat(2, 1fr); gap: $space-6; }
+    @include respond($bp-lg) { grid-template-columns: repeat(3, 1fr); gap: $space-8; }
+    @include respond($bp-xl) { grid-template-columns: repeat(4, 1fr); }
+    @include respond($bp-tv) { grid-template-columns: repeat(5, 1fr); gap: $space-10; }
   }
 
   &__card {
     @include card-base;
     border-radius: $radius-2xl;
     overflow: hidden;
+    cursor: pointer;
   }
 
   &__card-img-wrap {
@@ -99,9 +120,12 @@
 
   &__card-img {
     width: 100%;
-    height: 14rem;
+    height: 12rem;
     object-fit: cover;
     transition: transform $transition-slow;
+
+    @include respond($bp-md) { height: 14rem; }
+    @include respond($bp-tv) { height: 18rem; }
 
     .products-page__card:hover & { transform: scale(1.08); }
   }
@@ -120,22 +144,64 @@
     letter-spacing: 0.05em;
   }
 
-  &__card-body { padding: $space-5; }
+  // Floating cart icon on hover
+  &__card-cart-btn {
+    position: absolute;
+    bottom: $space-3;
+    right: $space-3;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $primary;
+    color: #fff;
+    border: none;
+    border-radius: $radius-full;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all $transition-fast;
+    box-shadow: $shadow-lg;
+    z-index: 2;
+
+    :host-context(.dark) & { background: $secondary; color: $primary; }
+
+    .products-page__card:hover & {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &:hover {
+      transform: scale(1.1) !important;
+    }
+
+    .material-icons-outlined { font-size: 1.2rem; }
+  }
+
+  &__card-body {
+    padding: $space-4;
+    @include respond($bp-md) { padding: $space-5; }
+  }
 
   &__card-name {
     font-family: $font-display;
-    font-size: $fs-lg;
+    font-size: $fs-base;
     font-weight: 700;
     color: #111;
     margin-bottom: $space-1;
+
+    @include respond($bp-lg) { font-size: $fs-lg; }
 
     :host-context(.dark) & { color: #fff; }
   }
 
   &__card-sub {
-    font-size: $fs-sm;
+    font-size: $fs-xs;
     color: $text-muted-light;
-    margin-bottom: $space-4;
+    margin-bottom: $space-3;
+
+    @include respond($bp-md) { font-size: $fs-sm; margin-bottom: $space-4; }
 
     :host-context(.dark) & { color: $text-muted-dark; }
   }
@@ -145,25 +211,31 @@
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid $border-light;
-    padding-top: $space-4;
+    padding-top: $space-3;
+
+    @include respond($bp-md) { padding-top: $space-4; }
 
     :host-context(.dark) & { border-color: rgba(255, 255, 255, 0.06); }
   }
 
   &__card-price {
     font-weight: 700;
-    font-size: $fs-lg;
+    font-size: $fs-base;
     color: $primary;
+
+    @include respond($bp-lg) { font-size: $fs-lg; }
   }
 
   &__card-btn {
     padding: $space-2 $space-4;
     background: $primary;
     color: #fff;
-    font-size: $fs-sm;
+    font-size: $fs-xs;
     font-weight: 600;
     border-radius: $radius-full;
     transition: opacity $transition-fast;
+
+    @include respond($bp-md) { font-size: $fs-sm; }
 
     &:hover { opacity: 0.85; }
   }

@@ -14,7 +14,7 @@
         <div class="studio__canvas-wrapper" #canvasContainer></div>
         <p class="studio__canvas-hint">
           <span class="material-icons-outlined">touch_app</span>
-          Mug rotates automatically — customize colors and text on the right
+          {{ getCanvasHint() }}
         </p>
       </div>
 
@@ -22,9 +22,29 @@
       <div class="studio__panel" appScrollReveal [revealDelay]="200">
         <h2 class="studio__panel-title">Customization Options</h2>
 
+        <!-- Product Type Selector -->
         <div class="studio__section">
           <h3 class="studio__section-title">
-            <span class="material-icons-outlined">palette</span> Body Color
+            <span class="material-icons-outlined">category</span> Product Type
+          </h3>
+          <div class="studio__product-grid">
+            @for (product of productOptions; track product.type) {
+              <button
+                class="studio__product-btn"
+                [class.studio__product-btn--active]="activeProduct() === product.type"
+                (click)="setProduct(product.type)"
+              >
+                <span class="material-icons-outlined">{{ product.icon }}</span>
+                <span class="studio__product-label">{{ product.label }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Body Color -->
+        <div class="studio__section">
+          <h3 class="studio__section-title">
+            <span class="material-icons-outlined">palette</span> Base Color
           </h3>
           <div class="studio__color-grid">
             @for (color of colorPresets; track color.hex) {
@@ -39,6 +59,7 @@
           </div>
         </div>
 
+        <!-- Custom Text -->
         <div class="studio__section">
           <h3 class="studio__section-title">
             <span class="material-icons-outlined">text_fields</span> Custom Text
@@ -52,15 +73,59 @@
           />
         </div>
 
+        <!-- Text Color -->
+        <div class="studio__section">
+          <h3 class="studio__section-title">
+            <span class="material-icons-outlined">format_color_text</span> Text Color
+          </h3>
+          <div class="studio__color-grid">
+            @for (tc of textColorPresets; track tc.hex) {
+              <button
+                class="studio__color-swatch"
+                [class.studio__color-swatch--active]="activeTextColor() === tc.hex"
+                [style.background]="tc.hex"
+                [attr.aria-label]="tc.label"
+                (click)="setTextColor(tc.hex)"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <!-- Upload Design -->
         <div class="studio__section">
           <h3 class="studio__section-title">
             <span class="material-icons-outlined">upload_file</span> Upload Design
           </h3>
-          <div class="studio__upload-zone">
-            <span class="material-icons-outlined studio__upload-icon">cloud_upload</span>
-            <p class="studio__upload-text">Drag & drop your image here</p>
-            <span class="studio__upload-hint">Supports PNG, JPG, SVG (max 10MB)</span>
-          </div>
+
+          <input
+            type="file"
+            #fileInput
+            accept="image/png,image/jpeg,image/svg+xml"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+
+          @if (uploadedImage()) {
+            <div class="studio__upload-preview">
+              <img [src]="uploadedImage()" alt="Uploaded design preview" />
+              <button class="studio__upload-remove" (click)="removeUpload()">
+                <span class="material-icons-outlined">close</span>
+              </button>
+            </div>
+          } @else {
+            <div
+              class="studio__upload-zone"
+              [class.studio__upload-zone--drag-active]="isDragOver()"
+              (click)="triggerFileInput()"
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)"
+            >
+              <span class="material-icons-outlined studio__upload-icon">cloud_upload</span>
+              <p class="studio__upload-text">Drag & drop your image here</p>
+              <span class="studio__upload-hint">or click to browse — PNG, JPG, SVG (max 10MB)</span>
+            </div>
+          }
         </div>
 
         <button class="studio__save-btn">

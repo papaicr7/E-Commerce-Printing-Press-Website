@@ -23,19 +23,31 @@
 
     <div class="products-page__grid">
       @for (product of filteredProducts(); track product.id; let i = $index) {
-        <div class="products-page__card" appScrollReveal [revealDelay]="i * 80">
+        <div
+          class="products-page__card"
+          appScrollReveal
+          [revealDelay]="i * 80"
+          (click)="goToProduct(product.id)"
+        >
           <div class="products-page__card-img-wrap">
             <img [alt]="product.name" [src]="product.imageUrl" class="products-page__card-img" />
             @if (product.tags.length > 0) {
               <span class="products-page__card-tag">{{ product.tags[0] }}</span>
             }
+            <button
+              class="products-page__card-cart-btn"
+              (click)="addToCart($event, product)"
+              title="Add to Cart"
+            >
+              <span class="material-icons-outlined">add_shopping_cart</span>
+            </button>
           </div>
           <div class="products-page__card-body">
             <h3 class="products-page__card-name">{{ product.name }}</h3>
             <p class="products-page__card-sub">{{ product.shortDescription }}</p>
             <div class="products-page__card-footer">
               <span class="products-page__card-price">${{ product.price.toFixed(2) }}</span>
-              <a routerLink="/customize-studio" class="products-page__card-btn">Customize</a>
+              <span class="products-page__card-btn">Buy</span>
             </div>
           </div>
         </div>

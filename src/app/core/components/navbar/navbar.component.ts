@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ import { ThemeService } from '../../services/theme.service';
 })
 export class NavbarComponent {
   readonly theme = inject(ThemeService);
+  readonly cartService = inject(CartService);
   readonly mobileOpen = signal(false);
 
   readonly navLinks = [

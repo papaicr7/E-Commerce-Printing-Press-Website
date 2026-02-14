@@ -29,10 +29,17 @@
       <button class="navbar__icon-btn" aria-label="Search">
         <span class="material-icons-outlined">search</span>
       </button>
-      <button class="navbar__icon-btn navbar__cart-btn" aria-label="Shopping bag">
+      <a
+        routerLink="/cart"
+        class="navbar__icon-btn navbar__cart-btn"
+        aria-label="Shopping bag"
+        (click)="closeMobile()"
+      >
         <span class="material-icons-outlined">shopping_bag</span>
-        <span class="navbar__cart-badge">2</span>
-      </button>
+        @if (cartService.totalCount() > 0) {
+          <span class="navbar__cart-badge">{{ cartService.totalCount() }}</span>
+        }
+      </a>
       <button class="navbar__icon-btn" (click)="theme.toggle()" aria-label="Toggle theme">
         @if (theme.isDark()) {
           <span class="material-icons-outlined" style="color: #f5b82e">light_mode</span>

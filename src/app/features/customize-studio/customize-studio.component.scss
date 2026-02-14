@@ -1,5 +1,6 @@
 @use 'variables' as *;
 @use 'mixins' as *;
+@use 'sass:color';
 
 .studio {
   &__header {
@@ -22,10 +23,15 @@
     font-size: $fs-4xl;
     font-weight: 700;
     margin: $space-2 0 $space-4;
-    @include respond($bp-lg) { font-size: $fs-5xl; }
+    @include respond($bp-lg) {
+      font-size: $fs-5xl;
+    }
   }
 
-  &__accent { font-style: italic; color: $secondary; }
+  &__accent {
+    font-style: italic;
+    color: $secondary;
+  }
 
   &__desc {
     color: rgba(220, 200, 240, 0.85);
@@ -44,10 +50,15 @@
     grid-template-columns: 1fr;
     gap: $space-10;
 
-    @include respond($bp-lg) { grid-template-columns: 1.4fr 1fr; }
+    @include respond($bp-lg) {
+      grid-template-columns: 1.4fr 1fr;
+    }
   }
 
-  &__canvas-col { display: flex; flex-direction: column; }
+  &__canvas-col {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__canvas-wrapper {
     border-radius: $radius-2xl;
@@ -62,7 +73,11 @@
       background: #2a2020;
     }
 
-    canvas { display: block; width: 100% !important; height: 100% !important; }
+    canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
   }
 
   &__canvas-hint {
@@ -74,7 +89,9 @@
     margin-top: $space-3;
     justify-content: center;
 
-    :host-context(.dark) & { color: $text-muted-dark; }
+    :host-context(.dark) & {
+      color: $text-muted-dark;
+    }
   }
 
   &__panel {
@@ -83,6 +100,8 @@
     border-radius: $radius-2xl;
     padding: $space-8;
     box-shadow: $shadow-md;
+    max-height: 80vh;
+    overflow-y: auto;
 
     :host-context(.dark) & {
       background: $surface-dark;
@@ -105,7 +124,9 @@
     }
   }
 
-  &__section { margin-bottom: $space-8; }
+  &__section {
+    margin-bottom: $space-8;
+  }
 
   &__section-title {
     display: flex;
@@ -116,10 +137,77 @@
     color: #111;
     margin-bottom: $space-4;
 
-    :host-context(.dark) & { color: #fff; }
+    :host-context(.dark) & {
+      color: #fff;
+    }
 
-    .material-icons-outlined { color: $primary; }
+    .material-icons-outlined {
+      color: $primary;
+    }
   }
+
+  // ── Product Selector ─────────────────────────────────────
+
+  &__product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $space-3;
+
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__product-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-1;
+    padding: $space-3 $space-2;
+    border: 2px solid $border-light;
+    border-radius: $radius-xl;
+    background: transparent;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: $text-muted-light;
+
+    :host-context(.dark) & {
+      border-color: rgba(255, 255, 255, 0.1);
+      color: $text-muted-dark;
+    }
+
+    .material-icons-outlined {
+      font-size: 1.75rem;
+      transition: color $transition-fast;
+    }
+
+    &:hover {
+      border-color: $primary;
+      color: $primary;
+      background: rgba($primary, 0.04);
+      transform: translateY(-2px);
+    }
+
+    &--active {
+      border-color: $primary;
+      background: rgba($primary, 0.08);
+      color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+
+      .material-icons-outlined {
+        color: $primary;
+      }
+    }
+  }
+
+  &__product-label {
+    font-size: $fs-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  // ── Color Swatches ───────────────────────────────────────
 
   &__color-grid {
     display: flex;
@@ -133,10 +221,14 @@
     border-radius: $radius-full;
     border: 3px solid transparent;
     cursor: pointer;
-    transition: transform $transition-fast, border-color $transition-fast;
+    transition:
+      transform $transition-fast,
+      border-color $transition-fast;
     box-shadow: $shadow-sm;
 
-    &:hover { transform: scale(1.15); }
+    &:hover {
+      transform: scale(1.15);
+    }
 
     &--active {
       border-color: $secondary;
@@ -144,6 +236,8 @@
       box-shadow: 0 0 0 3px rgba($secondary, 0.3);
     }
   }
+
+  // ── Text Input ───────────────────────────────────────────
 
   &__input {
     width: 100%;
@@ -155,7 +249,9 @@
     outline: none;
     transition: border-color $transition-fast;
 
-    &:focus { border-color: $primary; }
+    &:focus {
+      border-color: $primary;
+    }
 
     :host-context(.dark) & {
       background: $bg-dark;
@@ -164,19 +260,35 @@
     }
   }
 
+  // ── Upload Zone ──────────────────────────────────────────
+
   &__upload-zone {
     border: 2px dashed $border-light;
     border-radius: $radius-xl;
     padding: $space-8;
     text-align: center;
     cursor: pointer;
-    transition: border-color $transition-fast, background $transition-fast;
+    transition:
+      border-color $transition-fast,
+      background $transition-fast;
 
-    :host-context(.dark) & { border-color: rgba(255, 255, 255, 0.1); }
+    :host-context(.dark) & {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
 
     &:hover {
       border-color: $primary;
       background: rgba($primary, 0.03);
+    }
+
+    &--drag-active {
+      border-color: $secondary;
+      background: rgba($secondary, 0.08);
+      border-style: solid;
+
+      .studio__upload-icon {
+        color: $secondary;
+      }
     }
   }
 
@@ -186,20 +298,82 @@
     margin-bottom: $space-2;
     display: block;
 
-    :host-context(.dark) & { color: $text-muted-dark; }
+    :host-context(.dark) & {
+      color: $text-muted-dark;
+    }
   }
 
   &__upload-text {
     font-weight: 600;
     color: #111;
-    :host-context(.dark) & { color: #fff; }
+    :host-context(.dark) & {
+      color: #fff;
+    }
   }
 
   &__upload-hint {
     font-size: $fs-xs;
     color: $text-muted-light;
-    :host-context(.dark) & { color: $text-muted-dark; }
+    :host-context(.dark) & {
+      color: $text-muted-dark;
+    }
   }
+
+  // ── Upload Preview ───────────────────────────────────────
+
+  &__upload-preview {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $border-light;
+    border-radius: $radius-xl;
+    padding: $space-4;
+    background: rgba(0, 0, 0, 0.02);
+
+    :host-context(.dark) & {
+      border-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 140px;
+      border-radius: $radius-md;
+      object-fit: contain;
+    }
+  }
+
+  &__upload-remove {
+    position: absolute;
+    top: $space-2;
+    right: $space-2;
+    width: 2rem;
+    height: 2rem;
+    border-radius: $radius-full;
+    background: $error;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow-sm;
+    transition:
+      background $transition-fast,
+      transform $transition-fast;
+
+    .material-icons-outlined {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: color.adjust($error, $lightness: -10%);
+      transform: scale(1.1);
+    }
+  }
+
+  // ── Save Button ──────────────────────────────────────────
 
   &__save-btn {
     width: 100%;
@@ -214,7 +388,9 @@
     border-radius: $radius-full;
     font-size: $fs-base;
     box-shadow: $shadow-lg;
-    transition: background $transition-fast, transform $transition-fast;
+    transition:
+      background $transition-fast,
+      transform $transition-fast;
     cursor: pointer;
 
     &:hover {
