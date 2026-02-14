@@ -1,0 +1,45 @@
+<section class="products-page">
+  <div class="products-page__header" appScrollReveal>
+    <span class="products-page__label">Our Collection</span>
+    <h1 class="products-page__title">Product Collection</h1>
+    <p class="products-page__desc">
+      Explore our curated range of premium customizable products. Each item is crafted with
+      attention to detail and designed to be uniquely yours.
+    </p>
+  </div>
+
+  <div class="products-page__container">
+    <div class="products-page__filters" appScrollReveal>
+      @for (cat of categories; track cat) {
+        <button
+          class="products-page__filter-btn"
+          [class.products-page__filter-btn--active]="activeFilter() === cat"
+          (click)="setFilter(cat)"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <div class="products-page__grid">
+      @for (product of filteredProducts(); track product.id; let i = $index) {
+        <div class="products-page__card" appScrollReveal [revealDelay]="i * 80">
+          <div class="products-page__card-img-wrap">
+            <img [alt]="product.name" [src]="product.imageUrl" class="products-page__card-img" />
+            @if (product.tags.length > 0) {
+              <span class="products-page__card-tag">{{ product.tags[0] }}</span>
+            }
+          </div>
+          <div class="products-page__card-body">
+            <h3 class="products-page__card-name">{{ product.name }}</h3>
+            <p class="products-page__card-sub">{{ product.shortDescription }}</p>
+            <div class="products-page__card-footer">
+              <span class="products-page__card-price">${{ product.price.toFixed(2) }}</span>
+              <a routerLink="/customize-studio" class="products-page__card-btn">Customize</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

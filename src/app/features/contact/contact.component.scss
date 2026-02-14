@@ -1,0 +1,133 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.ct-hero {
+  @include gradient-primary;
+  color: #fff;
+  text-align: center;
+  padding: $space-16 $space-4 $space-12;
+
+  &__container { @include container; }
+  &__label { color: $secondary; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; font-size: $fs-sm; }
+  &__title { font-family: $font-display; font-size: $fs-4xl; font-weight: 700; margin: $space-2 0 $space-4; @include respond($bp-lg) { font-size: $fs-5xl; } }
+  &__accent { font-style: italic; color: $secondary; }
+  &__desc { color: rgba(220, 200, 240, 0.85); max-width: 500px; margin: 0 auto; }
+}
+
+.ct-info {
+  @include section-padding;
+  background: $bg-light;
+  :host-context(.dark) & { background: $bg-dark; }
+
+  &__container { @include container; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-8;
+    @include respond($bp-md) { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  &__card {
+    text-align: center;
+    padding: $space-8;
+    border-radius: $radius-2xl;
+    background: $surface-light;
+    border: 1px solid $border-light;
+    transition: border-color $transition-base, box-shadow $transition-base;
+    :host-context(.dark) & { background: $surface-dark; border-color: rgba(255,255,255,0.06); }
+    &:hover { border-color: rgba($secondary, 0.3); box-shadow: $shadow-lg; }
+  }
+
+  &__icon-wrap {
+    width: 4rem; height: 4rem; @include flex-center;
+    border-radius: $radius-full; background: rgba($primary, 0.1);
+    color: $primary; margin: 0 auto $space-4; font-size: $fs-3xl;
+  }
+
+  &__card-title {
+    font-family: $font-display; font-weight: 700; font-size: $fs-xl;
+    color: #111; margin-bottom: $space-2;
+    :host-context(.dark) & { color: #fff; }
+  }
+
+  &__card-text {
+    font-size: $fs-sm; color: $text-muted-light; line-height: 1.7;
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+}
+
+.ct-form-section {
+  @include section-padding;
+  background: $surface-light;
+  :host-context(.dark) & { background: $surface-dark; }
+
+  &__container { @include container; }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-12;
+    align-items: flex-start;
+    @include respond($bp-lg) { grid-template-columns: 1fr 1.2fr; }
+  }
+
+  &__label { color: $secondary; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-size: $fs-sm; }
+  &__title { font-family: $font-display; font-size: $fs-3xl; font-weight: 700; color: #111; margin-top: $space-2; :host-context(.dark) & { color: #fff; } }
+  &__desc { color: $text-muted-light; margin: $space-4 0 $space-8; line-height: 1.7; :host-context(.dark) & { color: $text-muted-dark; } }
+
+  &__highlights {
+    list-style: none; display: flex; flex-direction: column; gap: $space-3; margin-bottom: $space-8;
+    li { display: flex; align-items: center; gap: $space-3; font-size: $fs-sm; color: $text-light; :host-context(.dark) & { color: $text-dark; } }
+  }
+
+  &__check { color: $success; }
+
+  &__whatsapp {
+    display: inline-flex; align-items: center; gap: $space-2;
+    background: $success; color: #fff; padding: $space-3 $space-6;
+    border-radius: $radius-full; font-weight: 600; font-size: $fs-sm;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+    transition: background $transition-fast;
+    &:hover { background: #1fa855; }
+  }
+}
+
+.ct-form {
+  background: $bg-light;
+  border: 1px solid $border-light;
+  border-radius: $radius-2xl;
+  padding: $space-8;
+  box-shadow: $shadow-md;
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+
+  :host-context(.dark) & { background: $bg-dark; border-color: rgba(255,255,255,0.06); }
+
+  &__row {
+    display: grid; grid-template-columns: 1fr; gap: $space-6;
+    @include respond($bp-md) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  &__field {
+    label { display: block; font-size: $fs-sm; font-weight: 500; margin-bottom: $space-2; color: $text-light; :host-context(.dark) & { color: $text-dark; } }
+    input, select, textarea {
+      width: 100%; padding: $space-3 $space-4; border: 1px solid $border-light;
+      border-radius: $radius-md; font-family: $font-body; font-size: $fs-sm;
+      color: $text-light; background: #fff; outline: none;
+      transition: border-color $transition-fast;
+      &:focus { border-color: $primary; }
+      :host-context(.dark) & { background: $surface-dark; border-color: rgba(255,255,255,0.1); color: $text-dark; }
+    }
+    textarea { resize: vertical; }
+  }
+
+  &__submit {
+    display: flex; align-items: center; justify-content: center; gap: $space-2;
+    background: $primary; color: #fff; font-weight: 700; padding: $space-4;
+    border-radius: $radius-full; font-size: $fs-base; box-shadow: $shadow-lg;
+    transition: background $transition-fast, transform $transition-fast; cursor: pointer;
+    &:hover { background: $primary-dark; transform: translateY(-2px); }
+  }
+}

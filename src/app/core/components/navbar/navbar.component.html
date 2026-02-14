@@ -1,0 +1,49 @@
+<nav class="navbar">
+  <div class="navbar__container">
+    <a routerLink="/home" class="navbar__brand" (click)="closeMobile()">
+      <img
+        alt="Harano Magazine Logo"
+        class="navbar__logo-img"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNnKOxsfkP6R0Sc4mfCNVpyhT-aek2pgQS1UVB7eTmz1t6Cb_ZeEP8Iu7d6FObJ_BU2tygPuYlOSx_hLMD9XV7UduuZB0JsGNQN5zO0WcPPPzVL5hueG6SpWAB0Ldm8buy2OIM1bUSUaptbtr9QRdwJYLMCil19dOWCRdhlvRgZGGgRWBHyzrYGJvVt4I_S8rdpQrEw6aXuetIptKN3a-W_vWl-cIsfY3cBbL2qW0MdGWQrgu_ETwkfUg562zPcKhqgZqLIPm_q_de"
+      />
+      <div class="navbar__brand-text">
+        <span class="navbar__brand-name">HARANO</span>
+        <span class="navbar__brand-sub">Magazine</span>
+      </div>
+    </a>
+
+    <div class="navbar__links" [class.navbar__links--open]="mobileOpen()">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+          (click)="closeMobile()"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </div>
+
+    <div class="navbar__actions">
+      <button class="navbar__icon-btn" aria-label="Search">
+        <span class="material-icons-outlined">search</span>
+      </button>
+      <button class="navbar__icon-btn navbar__cart-btn" aria-label="Shopping bag">
+        <span class="material-icons-outlined">shopping_bag</span>
+        <span class="navbar__cart-badge">2</span>
+      </button>
+      <button class="navbar__icon-btn" (click)="theme.toggle()" aria-label="Toggle theme">
+        @if (theme.isDark()) {
+          <span class="material-icons-outlined" style="color: #f5b82e">light_mode</span>
+        } @else {
+          <span class="material-icons-outlined">dark_mode</span>
+        }
+      </button>
+      <a routerLink="/contact" class="navbar__cta">Get Quote</a>
+      <button class="navbar__hamburger" (click)="toggleMobile()" aria-label="Menu">
+        <span class="material-icons-outlined">{{ mobileOpen() ? 'close' : 'menu' }}</span>
+      </button>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,86 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.gc-hero {
+  text-align: center;
+  padding: $space-20 $space-4 $space-24;
+  position: relative;
+  overflow: hidden;
+  background: $bg-light;
+  :host-context(.dark) & { background: $bg-dark; }
+
+  &__container { @include container; position: relative; z-index: 1; }
+  &__label { display: inline-block; padding: $space-1 $space-3; border-radius: $radius-full; background: rgba($secondary, 0.15); color: $primary; font-size: $fs-xs; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: $space-4; border: 1px solid rgba($secondary, 0.3); :host-context(.dark) & { color: $secondary; } }
+  &__title { font-family: $font-display; font-size: $fs-5xl; font-weight: 700; color: #111; margin-bottom: $space-6; line-height: 1.1; @include respond($bp-lg) { font-size: $fs-7xl; } :host-context(.dark) & { color: #fff; } }
+  &__accent { color: $primary; font-style: italic; :host-context(.dark) & { color: $secondary; } }
+  &__desc { font-size: $fs-xl; color: $text-muted-light; max-width: 600px; margin: 0 auto $space-10; :host-context(.dark) & { color: $text-muted-dark; } }
+  &__actions { display: flex; gap: $space-4; justify-content: center; flex-wrap: wrap; }
+  &__btn { padding: $space-3 $space-8; border-radius: $radius-md; font-weight: 600; transition: all $transition-base; &--primary { background: $primary; color: #fff; box-shadow: $shadow-lg; &:hover { background: $primary-dark; } } &--secondary { background: $surface-light; border: 1px solid $border-light; color: #111; :host-context(.dark) & { background: $surface-dark; border-color: rgba(255,255,255,0.1); color: #fff; } } }
+}
+
+.gc-medium {
+  @include section-padding;
+  background: $surface-light;
+  :host-context(.dark) & { background: $surface-dark; }
+
+  &__container { @include container; }
+  &__header { text-align: center; margin-bottom: $space-16; }
+  &__title { font-family: $font-display; font-size: $fs-3xl; font-weight: 700; color: #111; :host-context(.dark) & { color: #fff; } }
+  &__bar { width: 6rem; height: 4px; background: $secondary; margin: $space-4 auto 0; border-radius: $radius-full; }
+
+  &__grid { display: grid; grid-template-columns: 1fr; gap: $space-12; @include respond($bp-md) { grid-template-columns: repeat(2, 1fr); } }
+
+  &__card {
+    position: relative; border-radius: $radius-xl; overflow: hidden; box-shadow: $shadow-2xl; cursor: pointer;
+    &:hover .gc-medium__card-img { transform: scale(1.05); }
+  }
+  &__card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 60%, transparent 100%); z-index: 1; }
+  &__card-img { width: 100%; height: 24rem; object-fit: cover; transition: transform $transition-slower; }
+  &__card-content { position: absolute; bottom: 0; left: 0; padding: $space-8; z-index: 2; color: #fff; }
+  &__card-label { display: flex; align-items: center; gap: $space-2; color: $secondary; text-transform: uppercase; font-size: $fs-sm; font-weight: 700; letter-spacing: 0.1em; margin-bottom: $space-2; }
+  &__card-title { font-size: $fs-3xl; font-family: $font-display; font-weight: 700; margin-bottom: $space-2; }
+  &__card-desc { color: rgba(255,255,255,0.8); font-weight: 300; }
+}
+
+.gc-catalog {
+  @include section-padding;
+  background: $bg-light;
+  :host-context(.dark) & { background: $bg-dark; }
+
+  &__container { @include container; }
+  &__title { font-family: $font-display; font-size: $fs-4xl; font-weight: 700; color: $primary; :host-context(.dark) & { color: #fff; } }
+  &__sub { color: $text-muted-light; margin-top: $space-2; margin-bottom: $space-12; :host-context(.dark) & { color: $text-muted-dark; } }
+
+  &__grid { display: grid; grid-template-columns: 1fr; gap: $space-8; @include respond($bp-md) { grid-template-columns: repeat(3, 1fr); } }
+
+  &__card { @include card-base; border-radius: $radius-lg; overflow: hidden; }
+  &__card-img-wrap { overflow: hidden; position: relative; }
+  &__card-img { width: 100%; height: 16rem; object-fit: cover; transition: transform $transition-slow; .gc-catalog__card:hover & { transform: scale(1.1); } }
+  &__card-badge { position: absolute; top: $space-4; right: $space-4; background: rgba(255,255,255,0.9); color: $primary; font-size: $fs-xs; font-weight: 700; padding: $space-1 $space-2; border-radius: $radius-sm; :host-context(.dark) & { background: rgba(0,0,0,0.8); color: $secondary; } }
+  &__card-body { padding: $space-6; }
+  &__card-name { font-family: $font-display; font-size: $fs-xl; font-weight: 700; color: #111; margin-bottom: $space-1; :host-context(.dark) & { color: #fff; } }
+  &__card-finish { font-size: $fs-sm; color: $text-muted-light; margin-bottom: $space-4; :host-context(.dark) & { color: $text-muted-dark; } }
+  &__card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid $border-light; padding-top: $space-4; :host-context(.dark) & { border-color: rgba(255,255,255,0.06); } }
+  &__card-price { color: $primary; font-weight: 700; small { font-weight: 400; color: $text-muted-light; } }
+  &__card-fav { color: $text-muted-light; transition: color $transition-fast; &:hover { color: $primary; :host-context(.dark) & { color: $secondary; } } }
+}
+
+.gc-request {
+  @include section-padding;
+  @include gradient-primary;
+  position: relative; overflow: hidden;
+
+  &__container { @include container; }
+  &__form-wrap { max-width: 56rem; margin: 0 auto; background: $surface-light; border-radius: $radius-2xl; box-shadow: $shadow-2xl; padding: $space-8; @include respond($bp-md) { padding: $space-12; } :host-context(.dark) & { background: $surface-dark; } }
+  &__label { color: $secondary; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-size: $fs-sm; }
+  &__title { font-family: $font-display; font-size: $fs-3xl; font-weight: 700; color: #111; margin-top: $space-2; @include respond($bp-md) { font-size: $fs-4xl; } :host-context(.dark) & { color: #fff; } }
+  &__desc { color: $text-muted-light; margin: $space-4 0 $space-10; :host-context(.dark) & { color: $text-muted-dark; } }
+  &__form { display: flex; flex-direction: column; gap: $space-6; }
+  &__row { display: grid; grid-template-columns: 1fr; gap: $space-6; @include respond($bp-md) { grid-template-columns: repeat(2, 1fr); } }
+  &__field {
+    label { display: block; font-size: $fs-sm; font-weight: 500; color: $text-light; margin-bottom: $space-2; :host-context(.dark) & { color: $text-dark; } }
+    input, select, textarea { width: 100%; padding: $space-3 $space-4; border: 1px solid $border-light; border-radius: $radius-md; font-family: $font-body; font-size: $fs-sm; color: $text-light; background: #fff; outline: none; transition: border-color $transition-fast; &:focus { border-color: $primary; } :host-context(.dark) & { background: $bg-dark; border-color: rgba(255,255,255,0.1); color: $text-dark; } }
+    textarea { resize: vertical; }
+  }
+  &__submit { width: 100%; padding: $space-4; background: $secondary; color: $primary; font-weight: 700; border-radius: $radius-full; font-size: $fs-base; box-shadow: $shadow-lg; transition: background $transition-fast, transform $transition-fast; cursor: pointer; @include respond($bp-md) { width: auto; align-self: center; padding: $space-4 $space-10; } &:hover { background: #f7c94e; transform: translateY(-2px); } }
+}

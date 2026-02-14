@@ -1,0 +1,178 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba($surface-light, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid $border-light;
+  transition: background $transition-base, border-color $transition-base;
+
+  :host-context(.dark) & {
+    background: rgba($bg-dark, 0.9);
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  &__container {
+    @include container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    flex-shrink: 0;
+  }
+
+  &__logo-img {
+    height: 3rem;
+    width: auto;
+    object-fit: contain;
+  }
+
+  &__brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__brand-name {
+    font-family: $font-display;
+    font-weight: 700;
+    font-size: $fs-2xl;
+    letter-spacing: 0.05em;
+    color: $primary;
+
+    :host-context(.dark) & { color: #fff; }
+  }
+
+  &__brand-sub {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    color: $secondary;
+  }
+
+  &__links {
+    display: none;
+    align-items: center;
+    gap: $space-8;
+
+    @include respond($bp-md) { display: flex; }
+
+    &--open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 5rem;
+      left: 0;
+      right: 0;
+      background: $surface-light;
+      padding: $space-6;
+      gap: $space-4;
+      border-bottom: 1px solid $border-light;
+      box-shadow: $shadow-lg;
+
+      :host-context(.dark) & {
+        background: $surface-dark;
+        border-color: rgba(255, 255, 255, 0.06);
+      }
+    }
+  }
+
+  &__link {
+    font-weight: 500;
+    font-size: $fs-sm;
+    color: $text-muted-light;
+    transition: color $transition-fast;
+    white-space: nowrap;
+
+    :host-context(.dark) & { color: $text-muted-dark; }
+
+    &:hover {
+      color: $primary;
+      :host-context(.dark) & { color: $secondary; }
+    }
+
+    &--active {
+      color: $primary !important;
+      font-weight: 600;
+      :host-context(.dark) & { color: $secondary !important; }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+  }
+
+  &__icon-btn {
+    padding: $space-2;
+    border-radius: $radius-full;
+    color: $text-muted-light;
+    transition: color $transition-fast, background $transition-fast;
+
+    :host-context(.dark) & { color: $text-muted-dark; }
+
+    &:hover {
+      color: $primary;
+      background: rgba($primary, 0.06);
+      :host-context(.dark) & { color: $secondary; }
+    }
+  }
+
+  &__cart-btn {
+    position: relative;
+  }
+
+  &__cart-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: $secondary;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__cta {
+    display: none;
+    background: $primary;
+    color: #fff;
+    padding: $space-2 $space-5;
+    border-radius: $radius-full;
+    font-weight: 600;
+    font-size: $fs-sm;
+    box-shadow: $shadow-md;
+    transition: opacity $transition-fast, box-shadow $transition-fast;
+
+    @include respond($bp-md) { display: inline-block; }
+
+    &:hover {
+      opacity: 0.9;
+      box-shadow: $shadow-lg;
+    }
+  }
+
+  &__hamburger {
+    display: flex;
+    color: $text-muted-light;
+    :host-context(.dark) & { color: $text-muted-dark; }
+    @include respond($bp-md) { display: none; }
+  }
+}

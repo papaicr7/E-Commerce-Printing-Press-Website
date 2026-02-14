@@ -1,0 +1,225 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.studio {
+  &__header {
+    @include gradient-primary;
+    color: #fff;
+    text-align: center;
+    padding: $space-16 $space-4 $space-12;
+  }
+
+  &__label {
+    color: $secondary;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: $fs-sm;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: $fs-4xl;
+    font-weight: 700;
+    margin: $space-2 0 $space-4;
+    @include respond($bp-lg) { font-size: $fs-5xl; }
+  }
+
+  &__accent { font-style: italic; color: $secondary; }
+
+  &__desc {
+    color: rgba(220, 200, 240, 0.85);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__container {
+    @include container;
+    padding-top: $space-10;
+    padding-bottom: $space-20;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-10;
+
+    @include respond($bp-lg) { grid-template-columns: 1.4fr 1fr; }
+  }
+
+  &__canvas-col { display: flex; flex-direction: column; }
+
+  &__canvas-wrapper {
+    border-radius: $radius-2xl;
+    overflow: hidden;
+    border: 1px solid $border-light;
+    box-shadow: $shadow-xl;
+    min-height: 400px;
+    background: #f5f0ea;
+
+    :host-context(.dark) & {
+      border-color: rgba(255, 255, 255, 0.06);
+      background: #2a2020;
+    }
+
+    canvas { display: block; width: 100% !important; height: 100% !important; }
+  }
+
+  &__canvas-hint {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: $fs-sm;
+    color: $text-muted-light;
+    margin-top: $space-3;
+    justify-content: center;
+
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+
+  &__panel {
+    background: $surface-light;
+    border: 1px solid $border-light;
+    border-radius: $radius-2xl;
+    padding: $space-8;
+    box-shadow: $shadow-md;
+
+    :host-context(.dark) & {
+      background: $surface-dark;
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  &__panel-title {
+    font-family: $font-display;
+    font-size: $fs-2xl;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: $space-8;
+    padding-bottom: $space-4;
+    border-bottom: 1px solid $border-light;
+
+    :host-context(.dark) & {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  &__section { margin-bottom: $space-8; }
+
+  &__section-title {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    font-weight: 600;
+    font-size: $fs-base;
+    color: #111;
+    margin-bottom: $space-4;
+
+    :host-context(.dark) & { color: #fff; }
+
+    .material-icons-outlined { color: $primary; }
+  }
+
+  &__color-grid {
+    display: flex;
+    gap: $space-3;
+    flex-wrap: wrap;
+  }
+
+  &__color-swatch {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: $radius-full;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform $transition-fast, border-color $transition-fast;
+    box-shadow: $shadow-sm;
+
+    &:hover { transform: scale(1.15); }
+
+    &--active {
+      border-color: $secondary;
+      transform: scale(1.15);
+      box-shadow: 0 0 0 3px rgba($secondary, 0.3);
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: $space-3 $space-4;
+    border: 1px solid $border-light;
+    border-radius: $radius-md;
+    font-family: $font-body;
+    font-size: $fs-base;
+    outline: none;
+    transition: border-color $transition-fast;
+
+    &:focus { border-color: $primary; }
+
+    :host-context(.dark) & {
+      background: $bg-dark;
+      border-color: rgba(255, 255, 255, 0.1);
+      color: $text-dark;
+    }
+  }
+
+  &__upload-zone {
+    border: 2px dashed $border-light;
+    border-radius: $radius-xl;
+    padding: $space-8;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color $transition-fast, background $transition-fast;
+
+    :host-context(.dark) & { border-color: rgba(255, 255, 255, 0.1); }
+
+    &:hover {
+      border-color: $primary;
+      background: rgba($primary, 0.03);
+    }
+  }
+
+  &__upload-icon {
+    font-size: 2.5rem;
+    color: $text-muted-light;
+    margin-bottom: $space-2;
+    display: block;
+
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+
+  &__upload-text {
+    font-weight: 600;
+    color: #111;
+    :host-context(.dark) & { color: #fff; }
+  }
+
+  &__upload-hint {
+    font-size: $fs-xs;
+    color: $text-muted-light;
+    :host-context(.dark) & { color: $text-muted-dark; }
+  }
+
+  &__save-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-2;
+    background: $secondary;
+    color: $primary;
+    font-weight: 700;
+    padding: $space-4;
+    border-radius: $radius-full;
+    font-size: $fs-base;
+    box-shadow: $shadow-lg;
+    transition: background $transition-fast, transform $transition-fast;
+    cursor: pointer;
+
+    &:hover {
+      background: #f7ca55;
+      transform: translateY(-2px);
+    }
+  }
+}

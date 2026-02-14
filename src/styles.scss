@@ -1,0 +1,126 @@
+@use 'variables' as *;
+@use 'animations';
+
+// ═══════════════════════════════════════════════════════════
+// Reset & Global
+// ═══════════════════════════════════════════════════════════
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-body;
+  color: $text-light;
+  background: $bg-light;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+.dark body, body.dark-mode {
+  color: $text-dark;
+  background: $bg-dark;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Scrollbar
+// ═══════════════════════════════════════════════════════════
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: $secondary;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Typography Utility Classes
+// ═══════════════════════════════════════════════════════════
+.font-display {
+  font-family: $font-display;
+}
+
+.font-body {
+  font-family: $font-body;
+}
+
+.gold-text {
+  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Links
+// ═══════════════════════════════════════════════════════════
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color $transition-fast;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Images
+// ═══════════════════════════════════════════════════════════
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Button Reset
+// ═══════════════════════════════════════════════════════════
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Material Icons
+// ═══════════════════════════════════════════════════════════
+.material-icons-outlined {
+  font-size: inherit;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Selection
+// ═══════════════════════════════════════════════════════════
+::selection {
+  background: rgba($primary, 0.2);
+  color: $primary;
+}
+
+.dark ::selection {
+  background: rgba($secondary, 0.3);
+  color: $secondary;
+}

@@ -1,0 +1,144 @@
+<!-- Hero -->
+<section class="gc-hero" appScrollReveal>
+  <div class="gc-hero__container">
+    <span class="gc-hero__label">Premium Custom Stationery</span>
+    <h1 class="gc-hero__title">
+      Express Your Passion With <span class="gc-hero__accent">Bespoke Elegance</span>
+    </h1>
+    <p class="gc-hero__desc">
+      Crafting unforgettable moments through luxury digital and printed greeting cards.
+    </p>
+    <div class="gc-hero__actions">
+      <a href="#custom-request" class="gc-hero__btn gc-hero__btn--primary">Request Custom Design</a>
+      <a href="#catalog" class="gc-hero__btn gc-hero__btn--secondary">View Catalog</a>
+    </div>
+  </div>
+</section>
+
+<!-- Medium Selector -->
+<section class="gc-medium" appScrollReveal>
+  <div class="gc-medium__container">
+    <div class="gc-medium__header">
+      <h2 class="gc-medium__title">Choose Your Medium</h2>
+      <div class="gc-medium__bar"></div>
+    </div>
+    <div class="gc-medium__grid">
+      <div class="gc-medium__card" appScrollReveal>
+        <div class="gc-medium__card-overlay"></div>
+        <img
+          alt="Digital greeting card"
+          class="gc-medium__card-img"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJbJnTUk-8XI9zbEzH4AxCkmeRHDGXG1QhAH2t7TJAsRoSq5TR8ERSuzgAB0X0qfaHiqoRLWudN5g6rEb-4Q570OZsecvVP74Tmo2UEu_jO3yC49FXJOL_aPxVSlyJHJ_NsHwl-_7zp_Rqnltx9nX192mm09ZUYsED_ExRmowLtZCirV_A_p6y3qTDLZPeSosYT2Cx812jVgxmWzFajpr8TrjRMrxG4chCIH9IWYiU7ENurVcGXR1D5hGWgMAZNKYTO1ftSeJdI_u4"
+        />
+        <div class="gc-medium__card-content">
+          <span class="gc-medium__card-label"
+            ><span class="material-icons-outlined">devices</span> Digital Edition</span
+          >
+          <h3 class="gc-medium__card-title">Interactive E-Cards</h3>
+          <p class="gc-medium__card-desc">Animated, interactive, and instantly shareable.</p>
+        </div>
+      </div>
+      <div class="gc-medium__card" appScrollReveal [revealDelay]="200">
+        <div class="gc-medium__card-overlay"></div>
+        <img
+          alt="Luxury printed card"
+          class="gc-medium__card-img"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrBuBL4ViNdPUHLpyYQQeH13jeopk8aMzdefHEkkr7rJHqBA-duIR_eMdxBHJfR8kYbA8LK-Gk0Q6FtTxxG5sK1reUiBP-a-ddjPGnNnL7ak2O42ggjQ_UevR1iHku8C0GBzG6F1Y1KfnfyST7QLMhU-1Gu_0vxpZT2lG40YoQlnoI6dOJHvvmmOtDJQY-JOxhyiu5hJDrXIGcBzzxfAX8WamOqNxLC5eyZUjCJZJvSpLybpnMnYdZ7wiDhfuR1x68yeQbk_ZaIBro"
+        />
+        <div class="gc-medium__card-content">
+          <span class="gc-medium__card-label"
+            ><span class="material-icons-outlined">print</span> Print Edition</span
+          >
+          <h3 class="gc-medium__card-title">Luxury Foil Print</h3>
+          <p class="gc-medium__card-desc">
+            Heavyweight cardstock, gold foil accents, and tactile textures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Catalog -->
+<section class="gc-catalog" id="catalog" appScrollReveal>
+  <div class="gc-catalog__container">
+    <h2 class="gc-catalog__title">Curated Collections</h2>
+    <p class="gc-catalog__sub">Handpicked designs for every special occasion.</p>
+    <div class="gc-catalog__grid">
+      @for (card of cards(); track card.id; let i = $index) {
+        <div class="gc-catalog__card" appScrollReveal [revealDelay]="i * 100">
+          <div class="gc-catalog__card-img-wrap">
+            <img [alt]="card.name" [src]="card.imageUrl" class="gc-catalog__card-img" />
+            <span class="gc-catalog__card-badge">{{ card.occasion }}</span>
+          </div>
+          <div class="gc-catalog__card-body">
+            <h3 class="gc-catalog__card-name">{{ card.name }}</h3>
+            <p class="gc-catalog__card-finish">{{ card.finish }}</p>
+            <div class="gc-catalog__card-footer">
+              <span class="gc-catalog__card-price"
+                >${{ card.price.toFixed(2) }} <small>/ unit</small></span
+              >
+              <button class="gc-catalog__card-fav" aria-label="Add to favorites">
+                <span class="material-icons-outlined">favorite_border</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Custom Request Form -->
+<section class="gc-request" id="custom-request" appScrollReveal>
+  <div class="gc-request__container">
+    <div class="gc-request__form-wrap">
+      <span class="gc-request__label">Bespoke Service</span>
+      <h2 class="gc-request__title">Start Your Custom Design</h2>
+      <p class="gc-request__desc">
+        Tell us about your vision. Our designers will create a unique piece tailored to your
+        specifications.
+      </p>
+      <form class="gc-request__form" (submit)="$event.preventDefault()">
+        <div class="gc-request__row">
+          <div class="gc-request__field">
+            <label>Full Name</label>
+            <input type="text" placeholder="Jane Doe" />
+          </div>
+          <div class="gc-request__field">
+            <label>Email Address</label>
+            <input type="email" placeholder="jane&#64;example.com" />
+          </div>
+        </div>
+        <div class="gc-request__row">
+          <div class="gc-request__field">
+            <label>Occasion</label>
+            <select>
+              <option>Wedding</option>
+              <option>Birthday</option>
+              <option>Corporate Event</option>
+              <option>Holiday</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="gc-request__field">
+            <label>Preferred Format</label>
+            <select>
+              <option>Physical Print</option>
+              <option>Digital (Animated)</option>
+              <option>Both</option>
+            </select>
+          </div>
+        </div>
+        <div class="gc-request__field">
+          <label>Your Vision</label>
+          <textarea
+            rows="4"
+            placeholder="Describe colors, themes, or specific elements..."
+          ></textarea>
+        </div>
+        <button type="submit" class="gc-request__submit">Submit Request</button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+<section class="studio">
+  <div class="studio__header" appScrollReveal>
+    <span class="studio__label">3D Customization Studio</span>
+    <h1 class="studio__title">Design Your <span class="studio__accent">Masterpiece</span></h1>
+    <p class="studio__desc">
+      Personalize your product in real-time with our interactive 3D preview.
+    </p>
+  </div>
+
+  <div class="studio__container">
+    <div class="studio__grid">
+      <!-- 3D Canvas -->
+      <div class="studio__canvas-col" appScrollReveal>
+        <div class="studio__canvas-wrapper" #canvasContainer></div>
+        <p class="studio__canvas-hint">
+          <span class="material-icons-outlined">touch_app</span>
+          Mug rotates automatically — customize colors and text on the right
+        </p>
+      </div>
+
+      <!-- Control Panel -->
+      <div class="studio__panel" appScrollReveal [revealDelay]="200">
+        <h2 class="studio__panel-title">Customization Options</h2>
+
+        <div class="studio__section">
+          <h3 class="studio__section-title">
+            <span class="material-icons-outlined">palette</span> Body Color
+          </h3>
+          <div class="studio__color-grid">
+            @for (color of colorPresets; track color.hex) {
+              <button
+                class="studio__color-swatch"
+                [class.studio__color-swatch--active]="activeColor() === color.hex"
+                [style.background]="color.hex"
+                [attr.aria-label]="color.label"
+                (click)="setColor(color.hex)"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <div class="studio__section">
+          <h3 class="studio__section-title">
+            <span class="material-icons-outlined">text_fields</span> Custom Text
+          </h3>
+          <input
+            type="text"
+            class="studio__input"
+            placeholder="Enter your text..."
+            [value]="customText()"
+            (input)="updateText($event)"
+          />
+        </div>
+
+        <div class="studio__section">
+          <h3 class="studio__section-title">
+            <span class="material-icons-outlined">upload_file</span> Upload Design
+          </h3>
+          <div class="studio__upload-zone">
+            <span class="material-icons-outlined studio__upload-icon">cloud_upload</span>
+            <p class="studio__upload-text">Drag & drop your image here</p>
+            <span class="studio__upload-hint">Supports PNG, JPG, SVG (max 10MB)</span>
+          </div>
+        </div>
+
+        <button class="studio__save-btn">
+          <span class="material-icons-outlined">shopping_cart</span>
+          Add to Cart — $14.99
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

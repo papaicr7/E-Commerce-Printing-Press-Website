@@ -1,0 +1,96 @@
+@use 'variables' as *;
+
+// ═══════════════════════════════════════════════════════════
+// Responsive
+// ═══════════════════════════════════════════════════════════
+@mixin respond($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin mobile-only {
+  @media (max-width: $bp-md - 1) { @content; }
+}
+
+// ═══════════════════════════════════════════════════════════
+// Visual Effects
+// ═══════════════════════════════════════════════════════════
+@mixin glass($bg-opacity: 0.08, $blur: 16px) {
+  background: rgba(255, 255, 255, $bg-opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@mixin glass-dark($bg-opacity: 0.15, $blur: 16px) {
+  background: rgba(0, 0, 0, $bg-opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@mixin gradient-primary {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+}
+
+@mixin gradient-gold {
+  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
+}
+
+@mixin gold-text {
+  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Layout
+// ═══════════════════════════════════════════════════════════
+@mixin container {
+  max-width: $bp-xl;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $space-4;
+  padding-right: $space-4;
+
+  @include respond($bp-sm) {
+    padding-left: $space-6;
+    padding-right: $space-6;
+  }
+  @include respond($bp-lg) {
+    padding-left: $space-8;
+    padding-right: $space-8;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// ═══════════════════════════════════════════════════════════
+// Components
+// ═══════════════════════════════════════════════════════════
+@mixin card-base {
+  background: $surface-light;
+  border-radius: $radius-xl;
+  border: 1px solid $border-light;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  :host-context(.dark) & {
+    background: $surface-dark;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &:hover {
+    box-shadow: $shadow-xl;
+    transform: translateY(-4px);
+  }
+}
+
+@mixin section-padding {
+  padding-top: $space-20;
+  padding-bottom: $space-20;
+}
