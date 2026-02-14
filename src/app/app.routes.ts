@@ -41,5 +41,9 @@ export const routes: Routes = [
     path: 'wishlist',
     loadComponent: () => import('./features/wishlist/wishlist.component').then(m => m.WishlistComponent)
   },
+  {
+    path: 'checkout',
+    loadComponent: () => import('./features/checkout/checkout.component').then(m => m.CheckoutComponent)
+  },
   { path: '**', redirectTo: 'home' },
 ];

@@ -60,7 +60,7 @@ export class ProductDetailComponent implements OnInit {
     const p = this.product();
     if (p) {
       this.cartService.addItem(p, this.quantity());
-      this.router.navigate(['/cart']);
+      this.router.navigate(['/checkout']);
     }
   }
 

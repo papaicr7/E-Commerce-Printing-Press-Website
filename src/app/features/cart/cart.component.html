@@ -77,10 +77,10 @@
             <span>Total</span>
             <span>₹{{ cartService.totalPrice().toFixed(2) }}</span>
           </div>
-          <button class="cart-page__checkout-btn">
+          <a routerLink="/checkout" class="cart-page__checkout-btn">
             <span class="material-icons-outlined">lock</span>
             Proceed to Checkout
-          </button>
+          </a>
           <a routerLink="/products" class="cart-page__continue">
             <span class="material-icons-outlined">arrow_back</span>
             Continue Shopping
