@@ -4,6 +4,7 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
 import { Product } from '../../shared/interfaces/product.interface';
 import { ProductService } from '../../core/services/product.service';
 import { CartService } from '../../core/services/cart.service';
+import { WishlistService } from '../../core/services/wishlist.service';
 
 @Component({
   selector: 'app-products',
@@ -16,6 +17,7 @@ export class ProductsComponent {
   private router = inject(Router);
   private productService = inject(ProductService);
   readonly cartService = inject(CartService);
+  readonly wishlistService = inject(WishlistService);
 
   readonly activeFilter = signal('All Items');
 
@@ -41,5 +43,10 @@ export class ProductsComponent {
   addToCart(event: Event, product: Product): void {
     event.stopPropagation();
     this.cartService.addItem(product);
+  }
+
+  toggleWishlist(event: Event, product: Product): void {
+    event.stopPropagation();
+    this.wishlistService.toggle(product);
   }
 }

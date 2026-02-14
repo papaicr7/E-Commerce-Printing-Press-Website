@@ -41,6 +41,19 @@
             >
               <span class="material-icons-outlined">add_shopping_cart</span>
             </button>
+            <button
+              class="products-page__card-wishlist-btn"
+              (click)="toggleWishlist($event, product)"
+              [title]="
+                wishlistService.isInWishlist(product.id)
+                  ? 'Remove from Wishlist'
+                  : 'Add to Wishlist'
+              "
+            >
+              <span class="material-icons-outlined">
+                {{ wishlistService.isInWishlist(product.id) ? 'favorite' : 'favorite_border' }}
+              </span>
+            </button>
           </div>
           <div class="products-page__card-body">
             <h3 class="products-page__card-name">{{ product.name }}</h3>

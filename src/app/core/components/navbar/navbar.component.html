@@ -26,9 +26,20 @@
     </div>
 
     <div class="navbar__actions">
-      <button class="navbar__icon-btn" aria-label="Search">
+      <button class="navbar__icon-btn" aria-label="Search" (click)="openSearch()">
         <span class="material-icons-outlined">search</span>
       </button>
+      <a
+        routerLink="/wishlist"
+        class="navbar__icon-btn"
+        aria-label="Wishlist"
+        (click)="closeMobile()"
+      >
+        <span class="material-icons-outlined">favorite_border</span>
+        @if (wishlistService.count() > 0) {
+          <span class="navbar__cart-badge">{{ wishlistService.count() }}</span>
+        }
+      </a>
       <a
         routerLink="/cart"
         class="navbar__icon-btn navbar__cart-btn"

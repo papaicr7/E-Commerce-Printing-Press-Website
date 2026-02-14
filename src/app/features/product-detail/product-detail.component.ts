@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 import { ProductService } from '../../core/services/product.service';
 import { CartService } from '../../core/services/cart.service';
+import { WishlistService } from '../../core/services/wishlist.service';
 import { Product } from '../../shared/interfaces/product.interface';
 
 @Component({
@@ -17,6 +18,7 @@ export class ProductDetailComponent implements OnInit {
   private router = inject(Router);
   private productService = inject(ProductService);
   readonly cartService = inject(CartService);
+  readonly wishlistService = inject(WishlistService);
 
   readonly product = signal<Product | null>(null);
   readonly relatedProducts = signal<Product[]>([]);
@@ -65,6 +67,13 @@ export class ProductDetailComponent implements OnInit {
   goToProduct(id: string): void {
     this.router.navigate(['/product', id]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  toggleWishlist(): void {
+    const p = this.product();
+    if (p) {
+      this.wishlistService.toggle(p);
+    }
   }
 
   getRatingStars(rating: number): string[] {

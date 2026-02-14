@@ -406,3 +406,20 @@
     font-size: $fs-sm;
   }
 }
+
+.pd__btn--wishlist {
+  background: transparent;
+  border: 1px solid $border-light;
+  color: $text-muted-light;
+  width: 3.5rem;
+  flex: 0 0 auto;
+  padding: 0;
+  
+  &:hover { border-color: $primary; color: $primary; }
+
+  .material-icons-outlined { font-size: 1.5rem; }
+}
+
+.pd__btn--wishlist:has(.material-icons-outlined:contains('favorite')) {
+  color: #ef4444; border-color: #ef4444;
+}

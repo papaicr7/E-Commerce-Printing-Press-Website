@@ -240,3 +240,35 @@
     &:hover { opacity: 0.85; }
   }
 }
+
+.products-page__card-wishlist-btn {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, color 0.2s;
+  color: #ccc;
+  z-index: 10;
+  
+  &:hover {
+    transform: scale(1.1);
+    color: #ef4444;
+  }
+  
+  .material-icons-outlined {
+    font-size: 1.25rem;
+  }
+}
+
+.products-page__card-wishlist-btn:has(.material-icons-outlined:contains('favorite')) {
+  color: #ef4444; 
+}

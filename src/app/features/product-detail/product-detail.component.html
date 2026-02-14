@@ -82,6 +82,17 @@
             <span class="material-icons-outlined">shopping_cart</span>
             Add to Cart
           </button>
+          <button
+            class="pd__btn pd__btn--wishlist"
+            (click)="toggleWishlist()"
+            [title]="
+              wishlistService.isInWishlist(p.id) ? 'Remove from Wishlist' : 'Add to Wishlist'
+            "
+          >
+            <span class="material-icons-outlined">
+              {{ wishlistService.isInWishlist(p.id) ? 'favorite' : 'favorite_border' }}
+            </span>
+          </button>
           <button class="pd__btn pd__btn--buy" (click)="buyNow()" [disabled]="!p.inStock">
             <span class="material-icons-outlined">bolt</span>
             Buy Now

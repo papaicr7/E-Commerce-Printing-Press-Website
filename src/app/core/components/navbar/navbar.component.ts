@@ -2,6 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import { CartService } from '../../services/cart.service';
+import { SearchService } from '../../services/search.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +15,14 @@ import { CartService } from '../../services/cart.service';
 export class NavbarComponent {
   readonly theme = inject(ThemeService);
   readonly cartService = inject(CartService);
+  readonly searchService = inject(SearchService);
+  readonly wishlistService = inject(WishlistService);
   readonly mobileOpen = signal(false);
+
+  openSearch(): void {
+    this.searchService.open();
+    this.closeMobile();
+  }
 
   readonly navLinks = [
     { path: '/home', label: 'Home' },
