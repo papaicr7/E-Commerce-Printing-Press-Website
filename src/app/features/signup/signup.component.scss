@@ -1,0 +1,259 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ═══════════════════════════════════════════════════════════
+// Signup Page — Centered Card on Dark Background
+// ═══════════════════════════════════════════════════════════
+
+$auth-bg: #0b1120;
+$auth-surface: #111827;
+$auth-border: rgba(255, 255, 255, 0.08);
+$auth-text: #e2e8f0;
+$auth-text-muted: #94a3b8;
+$auth-accent: #2563eb;
+$auth-accent-hover: #3b82f6;
+$auth-input-bg: #1e293b;
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: $auth-bg;
+  padding: $space-8 $space-4;
+  position: relative;
+
+  // Subtle blue radial glow behind the card
+  &::before {
+    content: '';
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba($auth-accent, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  // ─── Card ─────────────────────────────────────────────
+  &__card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    background: rgba($auth-surface, 0.6);
+    backdrop-filter: blur(24px);
+    border: 1px solid $auth-border;
+    border-radius: $radius-xl;
+    padding: $space-10 $space-8;
+    z-index: 1;
+  }
+
+  // ─── Header ───────────────────────────────────────────
+  &__header {
+    text-align: center;
+    margin-bottom: $space-8;
+  }
+
+  &__logo {
+    width: 48px;
+    height: 48px;
+    border-radius: $radius-lg;
+    background: rgba($auth-accent, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto $space-4;
+  }
+
+  &__logo-icon {
+    font-size: 24px !important;
+    color: $auth-accent;
+  }
+
+  &__brand {
+    font-family: $font-body;
+    font-size: $fs-lg;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: #fff;
+    margin-bottom: $space-1;
+  }
+
+  &__tagline {
+    font-size: $fs-xs;
+    letter-spacing: 0.18em;
+    color: $auth-text-muted;
+  }
+
+  // ─── Form ─────────────────────────────────────────────
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-5;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: $auth-text-muted;
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 18px !important;
+    color: $auth-text-muted;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+    background: $auth-input-bg;
+    border: 1px solid $auth-border;
+    border-radius: $radius-lg;
+    color: #fff;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    outline: none;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+
+    &::placeholder {
+      color: rgba(148, 163, 184, 0.5);
+    }
+
+    &:focus {
+      border-color: $auth-accent;
+      box-shadow: 0 0 0 3px rgba($auth-accent, 0.15);
+    }
+  }
+
+  &__toggle-pw {
+    position: absolute;
+    right: 12px;
+    color: $auth-text-muted;
+    cursor: pointer;
+    display: flex;
+
+    .material-icons-outlined {
+      font-size: 18px !important;
+    }
+
+    &:hover {
+      color: $auth-text;
+    }
+  }
+
+  // ─── Checkbox ─────────────────────────────────────────
+  &__checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-3;
+    cursor: pointer;
+    padding-top: $space-1;
+
+    input[type='checkbox'] {
+      display: none;
+    }
+  }
+
+  &__checkbox-custom {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid $auth-border;
+    border-radius: $radius-sm;
+    background: $auth-input-bg;
+    position: relative;
+    margin-top: 2px;
+    transition: border-color $transition-fast, background $transition-fast;
+
+    .signup__checkbox input:checked + & {
+      background: $auth-accent;
+      border-color: $auth-accent;
+
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  &__checkbox-text {
+    font-size: $fs-sm;
+    color: $auth-text-muted;
+    line-height: 1.5;
+  }
+
+  // ─── Submit ───────────────────────────────────────────
+  &__submit {
+    width: 100%;
+    padding: $space-3 $space-6;
+    background: $auth-accent;
+    color: #fff;
+    border: none;
+    border-radius: $radius-lg;
+    font-weight: 700;
+    font-size: $fs-sm;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background $transition-fast, box-shadow $transition-fast;
+    margin-top: $space-2;
+
+    &:hover {
+      background: $auth-accent-hover;
+      box-shadow: 0 4px 20px rgba($auth-accent, 0.35);
+    }
+  }
+
+  // ─── Footer ───────────────────────────────────────────
+  &__footer {
+    text-align: center;
+    margin-top: $space-8;
+    font-size: $fs-sm;
+    color: $auth-text-muted;
+  }
+
+  &__footer-link {
+    color: $auth-accent;
+    font-weight: 600;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $auth-accent-hover;
+    }
+  }
+
+  // ─── Page Footer ──────────────────────────────────────
+  &__page-footer {
+    position: relative;
+    z-index: 1;
+    margin-top: $space-12;
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: rgba($auth-text-muted, 0.5);
+    line-height: 1.8;
+  }
+}

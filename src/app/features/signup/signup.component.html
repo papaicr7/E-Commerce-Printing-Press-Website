@@ -1,0 +1,108 @@
+<div class="signup">
+  <div class="signup__card">
+    <!-- Brand Header -->
+    <div class="signup__header">
+      <div class="signup__logo">
+        <span class="material-icons-outlined signup__logo-icon">diamond</span>
+      </div>
+      <h1 class="signup__brand">HARANO MAGAZINE</h1>
+      <p class="signup__tagline">JOIN THE ATELIER</p>
+    </div>
+
+    <!-- Signup Form -->
+    <form (ngSubmit)="onSubmit()" class="signup__form">
+      <div class="signup__field">
+        <label class="signup__label" for="signup-name">FULL NAME</label>
+        <div class="signup__input-wrapper">
+          <span class="material-icons-outlined signup__input-icon">person</span>
+          <input
+            id="signup-name"
+            type="text"
+            class="signup__input"
+            placeholder="Esteban Harano"
+            [(ngModel)]="formData.fullName"
+            name="fullName"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="signup__field">
+        <label class="signup__label" for="signup-email">EMAIL ADDRESS</label>
+        <div class="signup__input-wrapper">
+          <span class="material-icons-outlined signup__input-icon">mail</span>
+          <input
+            id="signup-email"
+            type="email"
+            class="signup__input"
+            placeholder="you&#64;domain.com"
+            [(ngModel)]="formData.email"
+            name="email"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="signup__field">
+        <label class="signup__label" for="signup-phone">PHONE NUMBER</label>
+        <div class="signup__input-wrapper">
+          <span class="material-icons-outlined signup__input-icon">phone</span>
+          <input
+            id="signup-phone"
+            type="tel"
+            class="signup__input"
+            placeholder="+1 (555) 000-0000"
+            [(ngModel)]="formData.phone"
+            name="phone"
+          />
+        </div>
+      </div>
+
+      <div class="signup__field">
+        <label class="signup__label" for="signup-password">PASSWORD</label>
+        <div class="signup__input-wrapper">
+          <span class="material-icons-outlined signup__input-icon">lock</span>
+          <input
+            id="signup-password"
+            [type]="showPassword ? 'text' : 'password'"
+            class="signup__input"
+            placeholder="••••••••"
+            [(ngModel)]="formData.password"
+            name="password"
+            required
+          />
+          <button
+            type="button"
+            class="signup__toggle-pw"
+            (click)="togglePassword()"
+            aria-label="Toggle password visibility"
+          >
+            <span class="material-icons-outlined">
+              {{ showPassword ? 'visibility_off' : 'visibility' }}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <label class="signup__checkbox">
+        <input type="checkbox" [(ngModel)]="subscribeNewsletter" name="newsletter" />
+        <span class="signup__checkbox-custom"></span>
+        <span class="signup__checkbox-text">
+          Subscribe to our aesthetic newsletter for<br />exclusive previews.
+        </span>
+      </label>
+
+      <button type="submit" class="signup__submit">CREATE ACCOUNT</button>
+    </form>
+
+    <p class="signup__footer">
+      Already a member?
+      <a routerLink="/login" class="signup__footer-link">Log in</a>
+    </p>
+  </div>
+
+  <!-- Page Footer -->
+  <div class="signup__page-footer">
+    <p>&copy; 2023 HARANO MAGAZINE STUDIO.<br />CRAFTED WITH PRECISION.</p>
+  </div>
+</div>

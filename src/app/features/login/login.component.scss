@@ -1,0 +1,329 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'sass:color';
+
+// ═══════════════════════════════════════════════════════════
+// Login Page — Dark Luxury Split Layout
+// ═══════════════════════════════════════════════════════════
+
+$auth-bg: #0b1120;
+$auth-surface: #111827;
+$auth-border: rgba(255, 255, 255, 0.08);
+$auth-text: #e2e8f0;
+$auth-text-muted: #94a3b8;
+$auth-accent: #2563eb;
+$auth-accent-hover: #3b82f6;
+$auth-input-bg: #1e293b;
+
+.login {
+  display: flex;
+  min-height: 100vh;
+  background: $auth-bg;
+
+  // ─── Left Panel ───────────────────────────────────────
+  &__panel {
+    display: none;
+    position: relative;
+    width: 45%;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a0f00 0%, #0d1117 40%, #0b1120 100%);
+
+    @include respond($bp-lg) {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(180, 120, 40, 0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(120, 80, 20, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(60, 40, 10, 0.3) 0%, transparent 70%);
+      animation: panelShimmer 12s ease-in-out infinite alternate;
+    }
+
+    // Swirl marble effect
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 900'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23b8860b' stop-opacity='0.15'/%3E%3Cstop offset='50%25' stop-color='%23daa520' stop-opacity='0.08'/%3E%3Cstop offset='100%25' stop-color='%23b8860b' stop-opacity='0.12'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 0C150 200 50 400 200 500S400 600 300 900H0Z' fill='url(%23g1)'/%3E%3Cpath d='M200 0C350 150 250 350 400 450S550 700 450 900H200Z' fill='url(%23g1)' opacity='0.5'/%3E%3C/svg%3E")
+        center / cover no-repeat;
+      opacity: 0.7;
+      mix-blend-mode: screen;
+    }
+  }
+
+  &__panel-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(11, 17, 32, 0.95) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  &__panel-content {
+    position: relative;
+    z-index: 2;
+    padding: 3rem;
+  }
+
+  &__panel-title {
+    font-family: $font-display;
+    font-size: $fs-4xl;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.01em;
+    margin-bottom: $space-3;
+  }
+
+  &__panel-tagline {
+    font-size: $fs-sm;
+    color: $auth-text-muted;
+    line-height: 1.7;
+    margin-bottom: $space-8;
+  }
+
+  &__panel-badge {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+  }
+
+  &__panel-badge-line {
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: $auth-text-muted;
+  }
+
+  &__panel-badge-text {
+    font-size: $fs-xs;
+    letter-spacing: 0.25em;
+    color: $auth-text-muted;
+    font-weight: 600;
+  }
+
+  // ─── Right Panel — Form ───────────────────────────────
+  &__form-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-8;
+  }
+
+  &__form-container {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  &__title {
+    font-family: $font-display;
+    font-size: $fs-4xl;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: $space-2;
+  }
+
+  &__subtitle {
+    font-size: $fs-sm;
+    color: $auth-text-muted;
+    margin-bottom: $space-10;
+  }
+
+  // ─── Form Fields ──────────────────────────────────────
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-6;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $space-2;
+  }
+
+  &__label {
+    font-size: $fs-sm;
+    font-weight: 500;
+    color: $auth-text;
+  }
+
+  &__label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__forgot {
+    font-size: $fs-xs;
+    color: $auth-accent;
+    font-weight: 500;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $auth-accent-hover;
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 18px !important;
+    color: $auth-text-muted;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+    background: $auth-input-bg;
+    border: 1px solid $auth-border;
+    border-radius: $radius-lg;
+    color: #fff;
+    font-family: $font-body;
+    font-size: $fs-sm;
+    outline: none;
+    transition:
+      border-color $transition-fast,
+      box-shadow $transition-fast;
+
+    &::placeholder {
+      color: rgba(148, 163, 184, 0.5);
+    }
+
+    &:focus {
+      border-color: $auth-accent;
+      box-shadow: 0 0 0 3px rgba($auth-accent, 0.15);
+    }
+  }
+
+  &__toggle-pw {
+    position: absolute;
+    right: 12px;
+    color: $auth-text-muted;
+    cursor: pointer;
+    display: flex;
+
+    .material-icons-outlined {
+      font-size: 18px !important;
+    }
+
+    &:hover {
+      color: $auth-text;
+    }
+  }
+
+  &__submit {
+    width: 100%;
+    padding: $space-3 $space-6;
+    background: $auth-accent;
+    color: #fff;
+    border: none;
+    border-radius: $radius-lg;
+    font-weight: 600;
+    font-size: $fs-base;
+    cursor: pointer;
+    transition:
+      background $transition-fast,
+      box-shadow $transition-fast;
+    margin-top: $space-2;
+
+    &:hover {
+      background: $auth-accent-hover;
+      box-shadow: 0 4px 20px rgba($auth-accent, 0.35);
+    }
+  }
+
+  // ─── Divider ──────────────────────────────────────────
+  &__divider {
+    display: flex;
+    align-items: center;
+    gap: $space-4;
+    margin: $space-8 0;
+  }
+
+  &__divider-line {
+    flex: 1;
+    height: 1px;
+    background: $auth-border;
+  }
+
+  &__divider-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: $auth-text-muted;
+    white-space: nowrap;
+  }
+
+  // ─── Social Buttons ───────────────────────────────────
+  &__social {
+    display: flex;
+    gap: $space-4;
+  }
+
+  &__social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-3;
+    padding: $space-3 $space-4;
+    background: $auth-input-bg;
+    border: 1px solid $auth-border;
+    border-radius: $radius-lg;
+    color: $auth-text;
+    font-size: $fs-sm;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      border-color $transition-fast,
+      background $transition-fast;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: color.adjust($auth-input-bg, $lightness: 4%);
+    }
+  }
+
+  &__social-icon {
+    flex-shrink: 0;
+  }
+
+  // ─── Footer ───────────────────────────────────────────
+  &__footer {
+    text-align: center;
+    margin-top: $space-8;
+    font-size: $fs-sm;
+    color: $auth-text-muted;
+  }
+
+  &__footer-link {
+    color: $auth-accent;
+    font-weight: 600;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $auth-accent-hover;
+    }
+  }
+}
+
+// ─── Shimmer Animation ────────────────────────────────
+@keyframes panelShimmer {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
